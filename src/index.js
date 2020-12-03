@@ -14,8 +14,6 @@ let prevDone = false;
 let nextValue = "0";
 let nextDone = false;
 
-let decimalDone = false;
-
 let currentOparator = "";
 
 // 정수 실수 구분하는 함수
@@ -95,16 +93,19 @@ function onDecimal() {
 
 // +/- toggle
 function ontoggle() {
-  if (!prevDone) {
-    let tmp_value = flotOrInt(prevValue);
-    prevValue = tmp_value * -1;
-    prevValue = prevValue.toString();
-    result.innerHTML = prevValue;
-  } else {
-    let tmp_value = flotOrInt(nextValue);
-    nextValue = tmp_value * -1;
-    nextValue = nextValue.toString();
-    result.innerHTML = nextValue;
+  if (result.innerHTML !== "0" && typeof result.innerHTML === "string") {
+    let tmp_value = result.innerHTML;
+    tmp_value = flotOrInt(tmp_value);
+    tmp_value *= -1;
+    result.innerHTML = tmp_value;
+    if (!prevDone) {
+      prevValue = tmp_value;
+      prevValue = prevValue.toString();
+    } else {
+      nextValue = tmp_value;
+      nextValue = nextValue.toString();
+    }
+    // console.log(tmp_value, typeof tmp_value);
   }
 }
 
